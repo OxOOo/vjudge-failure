@@ -1,0 +1,433 @@
+/*全局*/
+a {
+    text-decoration: none;
+    color: #2e9bff;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #2d7bd6;
+}
+
+body {
+    color: #10819e;
+    font-size: 14px;
+}
+
+strong {
+    font-size: 80%;
+}
+
+/*文章*/
+article p {
+    text-indent: 2em;
+}
+
+div.frame {
+    margin: 0;
+    padding: 0 20px;
+}
+
+/*主部分*/
+.container {
+    width: 90%;
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*盒子，容器*/
+.box {
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #dae1e2;
+    background-image: linear-gradient(to bottom, #f9fdff, #abffff);
+    margin-top: 20px;
+}
+
+/*菜单*/
+div.menu {
+    width: 100%;
+    height: 50px;
+}
+
+div.menu a {
+    display: block;
+    text-decoration: none;
+    padding: 17px 17px 17px 17px;
+    color: #28daee;
+}
+
+div.menu a:hover {
+    color: #26b2c6;
+}
+
+div.menu ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 10px;
+    display: block;
+    float: left;
+}
+
+div.menu ul li {
+    float: left;
+}
+
+/*底部*/
+div.footer {
+    text-align: center;
+    color: gray;
+}
+
+/*表格*/
+div.table {
+    margin: 20px;
+}
+
+div.table table {
+    width: 100%;
+    margin: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+    align-content: center;
+}
+
+div.table table th, div.table table td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #80ffd4;
+    margin: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+div.table table tbody tr:nth-child(odd) {
+    background-color: #befaff;
+}
+
+div.table table tbody tr:hover {
+    background-color: #b9f0f5;
+}
+
+div.table table tbody tr.accepted {
+    background-color: #96ffbc;
+}
+
+div.table table tbody tr.accepted:hover {
+    background-color: #95f0b4;
+}
+
+div.table table th {
+    border-bottom-width: 2px;
+}
+
+div.table table th.name {
+
+}
+
+div.table table th.oj {
+    width: 7em;
+}
+
+div.table table th.id {
+    width: 4em;
+}
+
+div.table table th.person {
+    width: 5em;
+}
+
+div.table table th.date {
+    width: 10em;
+}
+
+div.table table th.duration {
+    width: 9em;
+}
+
+div.table table th.user {
+    width: 7em;
+}
+
+div.table table th.result {
+    width: 14em;
+}
+
+div.table table th.time {
+    width: 4em;
+}
+
+div.table table th.memory {
+    width: 4em;
+}
+
+div.table table th.language {
+    width: 4em;
+}
+
+div.table table th.length {
+    width: 5em;
+}
+
+div.table table th.rank {
+    width: 4em;
+}
+
+div.table table th.score {
+    width: 5em;
+}
+
+/*数页码*/
+div.pagination {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+div.pagination > ul {
+    display: inline-block;
+    list-style: none;
+    margin: 20px 0px;
+}
+
+div.pagination > ul li {
+    float: left;
+    display: inline;
+}
+
+div.pagination > ul li a {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bbbbbb;
+    margin: 0;
+    padding: 7px 15px;
+}
+
+div.pagination > ul > li.disable > a, div.pagination > ul > li.disable > a:hover {
+    color: #bbbbbb;
+    cursor: default;
+}
+
+div.pagination > ul > li:first-child > a {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+div.pagination > ul > li:last-child > a {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/*搜索框*/
+div.form {
+    margin-left: 30%;
+}
+
+div.form .error {
+    color: #ba4a48;
+}
+
+div.form .accepted {
+    color: #00b300;
+}
+
+div.form form {
+    display: block;
+    float: right;
+    padding: 20px;
+}
+
+div.form form input {
+    margin: 0;
+}
+
+div.form form input, div.form form select {
+    padding: 7px;
+    border: solid 1px #cff7f9;
+    border-radius: 4px;
+    outline: 0;
+    background: linear-gradient(to bottom, #ffffff, #d4fcfe);
+}
+
+div.form form input:hover, div.form form input:focus,
+div.form form select:hover, div.form form select:focus {
+    border-color: #b7dddf;
+}
+
+div.form button.small {
+    border-style: none;
+    background-color: transparent;
+    border-radius: 2px;
+    outline: none;
+}
+
+div.form button.small:hover {
+    background-color: #75d2ff;
+}
+
+/*题目*/
+div.problem {
+    padding-left: 3%;
+    padding-right: 3%;
+    color: black;
+}
+
+div.problem h1 {
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #66f8ff;
+}
+
+div.problem h3 {
+    color: #45c5ff;
+}
+
+div.problem p {
+    text-indent: 2em;
+}
+
+/*代码提交*/
+div.submit {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+div.editor {
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+    height: 30em;
+    margin-bottom: 20px;
+}
+
+div.submit a {
+    color: #58666e;
+}
+
+div.submit a:hover {
+    text-decoration: underline;
+}
+
+/*按钮*/
+div.btn-group {
+    margin: 20px 0px;
+}
+
+button.btn {
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #6dc4ff;
+    padding: 6px 12px;
+    font-size: 110%;
+    cursor: pointer;
+    margin: 10px 3px;
+    color: black;
+    outline: none;
+}
+
+button.btn-clicked {
+    background-color: #5590c0;
+    color: #ffffff;
+}
+
+/*标签*/
+div.tab {
+    margin: 10px;
+}
+
+div.tab ul {
+    list-style: none;
+    margin: 10px;
+    padding: 0;
+    display: block;
+    float: left;
+    text-align: right;
+}
+
+div.tab ul li {
+    margin: 0 10px;
+    float: left;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+div.tab ul li.active {
+    background-color: #a7a7a7;
+}
+
+div.tab ul li:hover {
+    background-color: #d1d1d1;
+}
+
+div.tab ul li a {
+    display: block;
+    text-decoration: none;
+    padding: 0 20px;
+    color: #4db3ee;
+}
+
+/*面板*/
+div.panel {
+    border: 1px solid #85bdff;
+    border-radius: 2px;
+}
+
+div.panel div.head {
+    margin: 0;
+    padding-left: 4em;
+    border-bottom: 1px solid #85bdff;
+}
+
+div.panel div.info {
+    margin: 10px 10px 0px 10px;
+    border: 1px solid #85bdff;
+    border-radius: 2px;
+    padding: 10px 0;
+}
+
+div.panel div.info div {
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+}
+
+div.panel div.info:last-child {
+    margin-bottom: 10px;
+}
+
+div.panel div.info:hover {
+    cursor: pointer;
+    color: black;
+}
+
+div.panel div.accepted {
+    background-color: #16f815;
+    border-color: #2bff4f;
+}
+
+div.panel div.accepted:hover {
+    background-color: #2bff4f;
+}
+
+div.panel div.wrong {
+    background-color: #ec3d2d;
+    border-color: #ff0000;
+}
+
+div.panel div.wrong:hover {
+    background-color: #ff0000;
+}
+
+div.panel div.le {
+    background-color: #f6f61e;
+    border-color: #ffff2b;
+}
+
+div.panel div.le:hover {
+    background-color: #ffff2b;
+}
