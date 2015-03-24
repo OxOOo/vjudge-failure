@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QMutex>
+#include <QMutexLocker>
 
 Test::Test(QJsonObject test, QObject *parent) :
     BaseThread(parent),test(test)
@@ -12,7 +14,11 @@ Test::Test(QJsonObject test, QObject *parent) :
 
 void Test::run()
 {
-    emit updateInfo("Process " + test["id"].toString());
+    static QMutex mutex;
+    emit updateInfo("Process " + test["id"].toString() + " wait for lock");
+    QMutexLocker lock(&mutex);
+
+    emit updateInfo("Process " + test["id"].toString() + " running");
     emit updateStatus("一切正常");
 
     int id = test["id"].toString().toInt();

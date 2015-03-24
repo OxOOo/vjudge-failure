@@ -6,5 +6,6 @@
         <file>img/plus.png</file>
         <file>img/logo.png</file>
         <file>img/exit.png</file>
+        <file>img/warning.png</file>
     </qresource>
 </RCC>

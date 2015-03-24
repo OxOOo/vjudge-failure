@@ -57,7 +57,7 @@ QString POJSpider::spider(QString url, MyNetwork *network)
     QString html = codec->toUnicode(temp);
     if(html.contains("<li>Can not find problem"))
     {
-        errorMessage(html.toUtf8());
+        emit errorMessage(html.toUtf8());
         return "";
     }
     return html;
@@ -69,7 +69,14 @@ QString POJSpider::uploadImages(QString html, MyNetwork *network)
     reg.setMinimal(true);
     for(int pos=reg.indexIn(html);pos!=-1;pos=reg.indexIn(html,pos+1))
     {
-        QByteArray image = network->downloadImage("http://poj.org/" + reg.cap(2));
+        QByteArray image = network->downloadImage(TOOL::joinUrl("http://poj.org", reg.cap(2)));
+        if(image.isEmpty())
+        {
+            emit errorMessage(QString("image empty\nhtml: " + reg.cap(0) + "\n" +
+                              reg.cap(1) + " " + reg.cap(2) + " " + reg.cap(3) +
+                              "\nurl: " + TOOL::joinUrl("http://poj.org", reg.cap(2))).toUtf8());
+            continue;
+        }
 
         QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
         QHttpPart imagePart;
@@ -81,7 +88,7 @@ QString POJSpider::uploadImages(QString html, MyNetwork *network)
         QString result = network->postHttpPart(uploadAddress + TOOL::getToken(token),&multiPart);
         if(!result.startsWith("Path:"))
         {
-            errorMessage(result.toUtf8());
+            emit errorMessage(result.toUtf8());
             this->exit();
         }
         QString path = result.mid(5);

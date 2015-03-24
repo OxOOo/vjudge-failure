@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     spider/bzojspider.cpp \
     submitter/bzojsubmitter.cpp \
     test/test.cpp \
-    test/runner.cpp
+    test/runner.cpp \
+    Config.cpp
 
 HEADERS  += mainwindow.h \
     threadwidget.h \

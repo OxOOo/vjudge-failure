@@ -61,7 +61,7 @@ QString BZOJSpider::spider(QString url, MyNetwork *network)
     QString html = codec->toUnicode(temp);
     if(html.contains("<title>Problem is not Availables"))
     {
-        errorMessage(html.toUtf8());
+        emit errorMessage(html.toUtf8());
         return "";
     }
     return html;
@@ -73,7 +73,14 @@ QString BZOJSpider::uploadImages(QString html, MyNetwork *network)
     reg.setMinimal(true);
     for(int pos=reg.indexIn(html);pos!=-1;pos=reg.indexIn(html,pos+1))
     {
-        QByteArray image = network->downloadImage("http://www.lydsy.com/JudgeOnline/" + reg.cap(2));
+        QByteArray image = network->downloadImage(TOOL::joinUrl("http://www.lydsy.com/JudgeOnline", reg.cap(2)));
+        if(image.isEmpty())
+        {
+            emit errorMessage(QString("image empty\nhtml: " + reg.cap(0) + "\n" +
+                              reg.cap(1) + " " + reg.cap(2) + " " + reg.cap(3) +
+                              "\nurl: " + TOOL::joinUrl("http://www.lydsy.com/JudgeOnline", reg.cap(2))).toUtf8());
+            continue;
+        }
         QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
 
         QHttpPart imagePart;
@@ -85,7 +92,7 @@ QString BZOJSpider::uploadImages(QString html, MyNetwork *network)
         QString result = network->postHttpPart(uploadAddress + TOOL::getToken(token),&multiPart);
         if(!result.startsWith("Path:"))
         {
-            errorMessage(result.toUtf8());
+            emit errorMessage(result.toUtf8());
             this->exit();
         }
         QString path = result.mid(5);

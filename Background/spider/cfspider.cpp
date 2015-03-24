@@ -61,7 +61,7 @@ QString CFSpider::spider(QString url,MyNetwork *network)
     {
         if(times == 5)
         {
-            errorMessage(html.toUtf8());
+            emit errorMessage(html.toUtf8());
             return "";
         }
         QByteArray temp = network->get(url);
@@ -84,6 +84,13 @@ QString CFSpider::uploadImages(QString html, MyNetwork *network)
     for(int pos=reg.indexIn(html);pos!=-1;pos=reg.indexIn(html,pos+1))
     {
         QByteArray image = network->downloadImage(reg.cap(2));
+        if(image.isEmpty())
+        {
+            emit errorMessage(QString("image empty\nhtml: " + reg.cap(0) + "\n" +
+                              reg.cap(1) + " " + reg.cap(2) + " " + reg.cap(3) +
+                              "\nurl: " + reg.cap(2)).toUtf8());
+            continue;
+        }
         QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
 
         QHttpPart imagePart;
@@ -95,7 +102,7 @@ QString CFSpider::uploadImages(QString html, MyNetwork *network)
         QString result = network->postHttpPart(uploadAddress + TOOL::getToken(token),&multiPart);
         if(!result.startsWith("Path:"))
         {
-            errorMessage(result.toUtf8());
+            emit errorMessage(result.toUtf8());
             this->exit();
         }
         QString path = result.mid(5);

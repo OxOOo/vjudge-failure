@@ -104,12 +104,13 @@ void ThreadWidget::updateStatus(QString str)
 
 void ThreadWidget::errorMessage(QByteArray msg)
 {
-    QFile file(QDateTime::currentDateTime().toString("yyyy-MM-dd HH-mm-ss ") + "thread.log");
-    file.open(QFile::WriteOnly | QFile::Text);
+    QByteArray buffer;
+    buffer.append("thread error:\n");
     QJsonDocument doc;
     doc.setObject(mission);
-    file.write(doc.toJson() + "\n");
-    file.write(msg);
+    buffer.append(doc.toJson() + "\n");
+    buffer.append(msg);
+    emit appendError(msg);
 }
 
 void ThreadWidget::finished()

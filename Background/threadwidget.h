@@ -36,6 +36,8 @@ signals:
     void askForAccount(QString);
 
     void releaseAccount(QString,QString);
+
+    void appendError(QByteArray);
 public slots:
     void updateInfo(QString str);
 

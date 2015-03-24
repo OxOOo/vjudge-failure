@@ -76,6 +76,8 @@ private slots:
 
     void releaseAccount(QString OJ,QString username);
 
+    void appendError(QByteArray msg);
+
     void trayActivated();
 
     void on_addToolButton_clicked();
@@ -88,7 +90,9 @@ private slots:
 
     void on_trayAction_triggered();
 
-    void on_action_triggered();
+    void on_exitAction_triggered();
+
+    void on_errorAction_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -102,6 +106,7 @@ private:
     QList<QPair<QString,QString> > usingAccountList;
     QList<QJsonObject> waitMissionList;
     QSystemTrayIcon *trayIcon;
+    QString msgInfo;
 
     void readSettings();
 

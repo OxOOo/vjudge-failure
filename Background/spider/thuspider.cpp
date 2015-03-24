@@ -23,7 +23,7 @@ void THUSpider::run()
         if(login(&network))break;
         if(times == 5)
         {
-            errorMessage("登陆失败\n");
+            emit errorMessage("登陆失败\n");
             return;
         }
     }
@@ -76,7 +76,14 @@ QString THUSpider::uploadImages(QString html, MyNetwork *network)
     reg.setMinimal(true);
     for(int pos=reg.indexIn(html);pos!=-1;pos=reg.indexIn(html,pos+1))
     {
-        QByteArray image = network->downloadImage("http://tsinsen.com" + reg.cap(2));
+        QByteArray image = network->downloadImage(TOOL::joinUrl("http://tsinsen.com",reg.cap(2)));
+        if(image.isEmpty())
+        {
+            emit errorMessage(QString("image empty\nhtml: " + reg.cap(0) + "\n" +
+                              reg.cap(1) + " " + reg.cap(2) + " " + reg.cap(3) +
+                              "\nurl: " + TOOL::joinUrl("http://tsinsen.com",reg.cap(2))).toUtf8());
+            continue;
+        }
         QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
 
         QHttpPart imagePart;
@@ -88,7 +95,7 @@ QString THUSpider::uploadImages(QString html, MyNetwork *network)
         QString result = network->postHttpPart(uploadAddress + TOOL::getToken(token),&multiPart);
         if(!result.startsWith("Path:"))
         {
-            errorMessage(result.toUtf8());
+            emit errorMessage(result.toUtf8());
             this->exit();
         }
         QString path = result.mid(5);

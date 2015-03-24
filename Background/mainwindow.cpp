@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QFile>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -275,28 +276,23 @@ void MainWindow::replyFinished(QNetworkReply *reply)
     qDebug()<<"replyFinished"<<endl;
     if(reply->error() != QNetworkReply::NoError)
     {
-        QFile file(QDateTime::currentDateTime().toString("yyyy-MM-dd HH-mm-ss.log"));
-        if(file.open(QFile::WriteOnly | QFile::Text))
-        {
-            file.write("replyFinished\n");
-            file.write(reply->errorString().toUtf8());
-        }
+        QByteArray buffer;
+        buffer.append("replyFinished\n");
+        buffer.append(reply->errorString().toUtf8());
+        appendError(buffer);
         reply->deleteLater();
         return;
     }
 
     QByteArray data = reply->readAll();
-    qDebug()<<data;
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(data,&error);
     if(error.error != QJsonParseError::NoError)
     {
-        QFile file(QDateTime::currentDateTime().toString("yyyy-MM-dd HH-mm-ss.log"));
-        if(file.open(QFile::WriteOnly | QFile::Text))
-        {
-            file.write((reply->request().url().toString() + "\n").toUtf8());
-            file.write(data);
-        }
+        QByteArray buffer;
+        buffer.append((reply->request().url().toString() + "\n").toUtf8());
+        buffer.append(data);
+        appendError(buffer);
         reply->deleteLater();
         return;
     }
@@ -346,6 +342,7 @@ void MainWindow::addMission(QJsonObject mission)
     connect(widget,SIGNAL(finishMission()),SLOT(finishMission()));
     connect(widget,SIGNAL(askForAccount(QString)),SLOT(askForAccount(QString)));
     connect(widget,SIGNAL(releaseAccount(QString,QString)),SLOT(releaseAccount(QString,QString)));
+    connect(widget,SIGNAL(appendError(QByteArray)),SLOT(appendError(QByteArray)));
     ui->threadLayout->addWidget(widget);
     widget->setInfo(settings["token"].toString(),settings["uploadSubmissionAddress"].toString(),settings["uploadTaskAddress"].toString(),settings["uploadTestAddress"].toString(),settings["uploadAddress"].toString());
 }
@@ -358,6 +355,23 @@ void MainWindow::finishMission()
     widget->deleteLater();
     dealWaitMission();
     timeout();
+}
+
+void MainWindow::appendError(QByteArray msg)
+{
+    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd HH-mm-ss") + ".log";
+    QFile file(filename);
+    if(file.open(QFile::WriteOnly | QFile::Text))
+    {
+        file.write(msg);
+        file.close();
+        msgInfo += "出现错误，储存在：" + filename + "\n";
+    }else{
+        msgInfo +=  "无法储存错误信息\n";
+    }
+
+    ui->errorAction->setEnabled(true);
+    setWindowTitle("出现错误，请点击“错误”按钮查看错误信息");
 }
 
 void MainWindow::askForAccount(QString OJ)
@@ -411,10 +425,15 @@ void MainWindow::on_trayAction_triggered()
     hide();
 }
 
-void MainWindow::on_action_triggered()
+void MainWindow::on_exitAction_triggered()
 {
     if(ui->stopAction->isEnabled())
         on_stopAction_triggered();
     close();
 }
 
+
+void MainWindow::on_errorAction_triggered()
+{
+    QMessageBox::information(this, "错误信息", msgInfo);
+}

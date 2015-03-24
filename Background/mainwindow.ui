@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>虚拟在线评测系统 后台</string>
+   <string>虚拟在线评测系统 后台 V1.2</string>
   </property>
   <property name="windowIcon">
    <iconset resource="Resource.qrc">
@@ -317,7 +317,8 @@
     <addaction name="startAction"/>
     <addaction name="stopAction"/>
     <addaction name="trayAction"/>
-    <addaction name="action"/>
+    <addaction name="errorAction"/>
+    <addaction name="exitAction"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -331,6 +332,7 @@
    <addaction name="startAction"/>
    <addaction name="stopAction"/>
    <addaction name="trayAction"/>
+   <addaction name="errorAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="startAction">
@@ -372,7 +374,7 @@
     <string>隐藏至托盘</string>
    </property>
   </action>
-  <action name="action">
+  <action name="exitAction">
    <property name="icon">
     <iconset resource="Resource.qrc">
      <normaloff>:/img/exit.png</normaloff>:/img/exit.png</iconset>
@@ -382,6 +384,21 @@
    </property>
    <property name="toolTip">
     <string>退出程序</string>
+   </property>
+  </action>
+  <action name="errorAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/img/warning.png</normaloff>:/img/warning.png</iconset>
+   </property>
+   <property name="text">
+    <string>错误</string>
+   </property>
+   <property name="toolTip">
+    <string>查看错误</string>
    </property>
   </action>
  </widget>
